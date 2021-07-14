@@ -47,8 +47,17 @@ void vuln(void)
 
 ## Exploitation
 
-La fonction `read` permet de lire `0x96` caractères soient `150` en décimal et place ensuite la string dans `local_70` qui a un buffer de `0x70` soit `112` en décimal.
+La fonction `read` permet de lire `0x96` caractères soient `150` en décimal et place ensuite la string dans `local_70` qui a un buffer de `104` en décimal.
 Un overflow est donc possible.
+Il faut aussi compte `8` bytes de plus pour pouvoir overflow car au début de la fonction `vuln`, `ebp` et `ebx` sont sauvegardé.
+Il va donc falloir overflow avec `112` caractères.
+
+```c
+08049196 <vuln>:
+ 8049196:    55                       push   ebp
+ 8049197:    89 e5                    mov    ebp,esp
+ 8049199:    53                       push   ebx
+```
 
 Le but ici, va être d'overflow, puis d'exécuter `puts` avec comme argument la fonction `read` pour récupérer son adresse dans la libc et de jump à nouveau sur `main` pour exécuter de nouveau `puts` avec cette fois-ci `__libc_start_main` en argument.
 
@@ -275,6 +284,12 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             exit(0)
 ```
+
+## Exploitation via ret2dl_resolve
+
+Merci à @0xSoEasY, son script est disponible ici: <https://github.com/AetherBlack/CyberThreatForce2021/blob/main/Pwn/Bof_3/solve_ret2dl_resolve.py>.
+
+## Flag
 
 A nouveau le flag est sous `/home/ctf/flag.txt`.
 
