@@ -107,4 +107,10 @@ Hello AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA�@
 CYBERTF{B@sic_Buff3r_Ov3rflow}
 ```
 
+## Exploitation via ROPchain
+
+Merci à @0xSoEasy, le script est disponible ici: <https://github.com/AetherBlack/CyberThreatForce2021/blob/main/Pwn/Bof_1/solve_ROPchain.py>.
+
+## Flag
+
 flag: `CYBERTF{B@sic_Buff3r_Ov3rflow}`
